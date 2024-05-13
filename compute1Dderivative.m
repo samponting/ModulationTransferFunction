@@ -2,7 +2,7 @@ function derivImg = compute1Dderivative(img,FIR)
 
     derivImg = zeros(size(img,1),size(img,2));
     for x = 1:size(img,1)
-        tmp = conv(img(x,:),FIR,'same');
+        tmp = conv(giimg(x,:),FIR,'same');
         derivImg(x,:) = tmp;
     end
 
