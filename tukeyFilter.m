@@ -11,9 +11,9 @@ function w = tukeyFilter(n,alpha,mid)
 
     w = zeros(n,1);
     for x = 0:m
-        if x < alpha*m
-            w(x+1) = 0.5*(1-cos((2*pi*x)/(alpha*(m-1))));
-        else
+        if x <= (alpha*(m))
+            w(x+1) = 0.5*(1-cos((pi*x)/(alpha*m)));
+        elseif (alpha*m) < x && x < ((2-alpha)*m)
             w(x+1) = 1;
         end
         w(n2-x) = w(x+1);
