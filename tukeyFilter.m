@@ -6,13 +6,13 @@ function w = tukeyFilter(n,alpha,mid)
 
     mm = max(mid, n-mid);
     n2 = round(mm*2);
-    m = (n2-1)/2;
+    m = (n2-1);
 
 
     w = zeros(n,1);
     for x = 0:m
-        if x <= (alpha*(m))
-            w(x+1) = 0.5*(1-cos((pi*x)/(alpha*m)));
+        if x <= (alpha*(m))/2
+            w(x+1) = 0.5*(1-cos((2*pi*x)/(alpha*m)));
         elseif (alpha*m) < x && x < ((2-alpha)*m)
             w(x+1) = 1;
         end
