@@ -21,13 +21,12 @@ targetImage = 'calibratedTarget';
 ROIsideLength = 200; %100-400 pixel range
 
 ROIimg = findROI(targetImage,ROIsideLength,mode);
-
-%% Tukey Window and Find Derivative
+ROIimg = flip(ROIimg);
+%% Tukey Window, Find Derivative and Fit Curve
 
 %compute 1-D derivative
 FIR = [-0.5 0.5];
 derivImg = compute1Dderivative(ROIimg,FIR);
-
 
 %tukey window
 alpha = 1;
@@ -54,12 +53,26 @@ c = findCentroid(filtImg2);
 %polynomial fit to edge estimate
 polyDegree = 5;
 edgeEst = polyfit(1:size(c),c,polyDegree);
+disp(['edge angle estimate: ',num2str(rad2deg(atan(edgeEst(5))))])
 
-rad2deg(atan(edgeEst(5)))
+%% Align Edges and Up-sample
 
+sampleFactor = 4; %default = 4
 
+ESF = alignEdgeAndUpsample(ROIimg,edgeEst,sampleFactor);
 
+%% Compute LSF
 
+LSF = computeLSF(ESF);
 
+%% Fourier Transform and Correction
 
+mtf = discreteFourierTransform(LSF);
 
+%% Compute spatial Frequency Values
+
+Fk = computeSpatialFrequencyValues(sampleFactor, edgeEst(5), length(mtf));
+
+%% Plot MTF
+
+plotMTF(mtf,Fk)
