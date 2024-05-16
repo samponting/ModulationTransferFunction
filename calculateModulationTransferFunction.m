@@ -14,11 +14,10 @@ if exist('processedImages/darkCurrent.mat') && ~exist('/processedImages/calibrat
     DCcalibration
 end
 
-
 %% Generate Luminance images and find ROI
 targetImage = 'calibratedTarget';
 
-ROIsideLength = 200; %100-400 pixel range
+ROIsideLength = 150; %100-400 pixel range
 
 ROIimg = findROI(targetImage,ROIsideLength,mode);
 ROIimg = flip(ROIimg);

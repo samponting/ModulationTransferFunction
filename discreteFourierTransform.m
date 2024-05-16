@@ -17,7 +17,7 @@ function corr_mtf = discreteFourierTransform(LSF)
 
     dCorr = 10*ones(1,length(sincFun));
     dCorr(sincFun<10) = sincFun(sincFun<10);
-    dCorr = abs(dCorr);
+%     dCorr = abs(dCorr);
     corr_mtf = mtf.*dCorr;
 
 %     norm_mtf = corr_mtf./max(corr_mtf);
