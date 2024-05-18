@@ -52,7 +52,7 @@ c = findCentroid(filtImg2);
 %polynomial fit to edge estimate
 polyDegree = 5;
 edgeEst = polyfit(1:size(c),c,polyDegree);
-disp(['edge angle estimate: ',num2str(rad2deg(atan(edgeEst(5))))])
+disp(['edge angle estimate: ',num2str(rad2deg(atan(mean(gradient(polyval(edgeEst,1:length(ROIimg)))))))])
 
 %% Align Edges and Up-sample
 
@@ -75,3 +75,6 @@ Fk = computeSpatialFrequencyValues(sampleFactor, edgeEst(5), length(mtf));
 %% Plot MTF
 
 plotMTF(mtf,Fk)
+
+%% Acutance conversion - wip
+
